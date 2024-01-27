@@ -4,6 +4,7 @@
     },
     "dependencies": {
         "@airtable/blocks": "1.8.0",
+        "@react-oauth/google": "^0.12.1",
         "react": "^16.13.0",
         "react-dom": "^16.13.0"
     },
