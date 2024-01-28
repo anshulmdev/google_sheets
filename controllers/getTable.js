@@ -1,5 +1,7 @@
+import { excelConverter } from "./excelConverter";
 
 
+/*
 const dataFormatting = (airtableTable) => {
     let formattedData = [];
     airtableTable.forEach((e) => {
@@ -10,6 +12,7 @@ const dataFormatting = (airtableTable) => {
     })
     return formattedData
 }
+*/
 
 
 
@@ -20,20 +23,10 @@ export const demoPayload = async (myTable) => {
         const queryResult = myTable.selectRecords();
         await queryResult.loadDataAsync();
         const tableRecords = queryResult;
-        console.log(tableRecords.records)
-        const airtableRecords = dataFormatting(tableRecords.records)
-        const data = {airtableRecords};
-        const response = await fetch("https://webhook.site/4dc66d2a-6d06-4bb4-ae06-3c05ce713109", {
-            method: "POST", // or 'PUT'
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-        });
+        const tableName = myTable.name;
+        const tableFields = myTable.fields;
 
-        const result = response;
-        console.log("Success:", result);
-
+        await excelConverter(tableName, tableFields, tableRecords);
 
         return true;
 
