@@ -1,8 +1,8 @@
 import {initializeBlock} from '@airtable/blocks/ui';
 import { Box } from "@airtable/blocks/ui";
-import { Button } from "@airtable/blocks/ui";
 import React from 'react';
 import { GoogleOAuth } from "./userInfo";
+import { GenerateBasicReport } from "./runDemo"
 
 
 function HelloWorldApp() {
@@ -19,9 +19,8 @@ function HelloWorldApp() {
 
 
     <GoogleOAuth />
-    <Button onClick={() => console.log("Button clicked")} icon="edit">
-        Generate Excel Report
-    </Button>
+    <GenerateBasicReport />
+ 
   </Box>
     </div>;
 }
