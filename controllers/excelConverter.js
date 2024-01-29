@@ -8,12 +8,15 @@ const mainConverter = async (fileName, schema, dataObject) => {
 
 export const excelConverter = async (tableName, tableFields, tableRecords) => {
     try {
-        tableFields = tableFields.map((e) => e = { name: e.name, type: e.type })
-        let records;
+        let fields = {}
+        tableFields = tableFields.forEach((e) => fields[e.id] = { name: e.name, type: e.type })
+
+        let records = [];
         tableRecords.records.forEach(element => {
             records.push(element._data.cellValuesByFieldId)
         });
         const schema = []
+        const objects = []
         const checkType = (type) => {
             switch(type) {
                 case "createdTime": return Date ;
@@ -21,8 +24,32 @@ export const excelConverter = async (tableName, tableFields, tableRecords) => {
                 default: return String ;
             }
         }
-        tableFields.forEach((e) => { schema.push({column: e.name, type: checkType(e.type), value: 100})})
-        console.log('Schema', schema)
+
+        const checkValue = (item, type, name) => {
+            switch(item) {
+                case type === "checkbox": return item[name]
+                default: return String(item[name])
+            }
+        }
+
+        Object.values(fields).forEach((e) => { 
+            let row = {column: e.name, type: checkType(e.type), value: item => checkValue(item, e.type, e.name)};
+            if ( row.type === Date ) row['format'] = 'mm/dd/yyyy';
+            schema.push(row)
+        
+        })
+        console.log(records)
+        records.forEach((record) => {
+            let recordTemp = {};
+            Object.keys(record).forEach((key) => {
+                recordTemp[String(fields[key].name)] = record[key]
+            })
+            objects.push(recordTemp)
+        })
+
+        console.log("schema", schema);
+        console.log("objects", objects)
+        await mainConverter(tableName, schema, objects)
 
 
 

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {base} from '@airtable/blocks';
 import { Button } from "@airtable/blocks/ui";
 import { demoPayload } from "../controllers/getTable";
 import { TablePicker } from "@airtable/blocks/ui";
@@ -7,7 +8,7 @@ import { TablePicker } from "@airtable/blocks/ui";
 
 
 export const GenerateBasicReport = () => {
-    const [table, setTable] = useState(null);
+    const [table, setTable] = useState(base.tables[0]);
     return (
         <div>
             <TablePicker
