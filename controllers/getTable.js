@@ -1,27 +1,19 @@
 import { excelConverter } from "./excelConverter";
 
 
-/*
-const dataFormatting = (airtableTable) => {
-    let formattedData = [];
-    airtableTable.forEach((e) => {
-        formattedData.push({
-            id: e._id,
-            data: e._data
-        })
-    })
-    return formattedData
-}
-*/
-
-
-
-export const demoPayload = async (myTable, fileName) => {
+export const demoPayload = async (myTable, fileName, view) => {
     try {
         if (!myTable) throw new Error("Table not Selected to Query")
-        const tableID = myTable._id;
+        console.log(view._id)
         const queryResult = myTable.selectRecords();
         await queryResult.loadDataAsync();
+
+        const viewMetadata = view.selectMetadata();
+        await viewMetadata.loadDataAsync();
+
+        console.log(queryResult)
+        console.log(viewMetadata)
+
         const tableRecords = queryResult;
         const tableFields = myTable.fields;
 

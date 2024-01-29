@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { base } from '@airtable/blocks';
-import { Text, Icon, FormField, Input, Box, Heading, Button } from "@airtable/blocks/ui";
+import { ProgressBar, Text, Icon, FormField, Input, Box, Heading, Button } from "@airtable/blocks/ui";
 import { demoPayload } from "../controllers/getTable";
 import { TablePicker, ViewPicker } from "@airtable/blocks/ui";
 
@@ -9,7 +9,7 @@ import { TablePicker, ViewPicker } from "@airtable/blocks/ui";
 
 export const GenerateBasicReport = () => {
     const [table, setTable] = useState(base.tables[0]);
-    const [view, setView] = useState(null);
+    const [view, setView] = useState(table.views[0]);
     const [value, setValue] = useState(`${table.name}`);
     return (
         <div>
@@ -45,10 +45,14 @@ export const GenerateBasicReport = () => {
                     <Input value={value} onChange={e => setValue(e.target.value)} />
                 </FormField>
                 <Button
-                    variant="primary" flex={1} marginLeft={1} marginTop={1} justifyContent='flex-start' onClick={() => demoPayload(table, value)} icon="premium">
+                    variant="primary" flex={1} marginLeft={1} marginTop={1} justifyContent='flex-start' onClick={() => demoPayload(table, value, view)} icon="premium">
                     Generate Excel Report
                 </Button>
             </Box>
+            <ProgressBar
+            progress={0}
+            barColor='#00A36C'
+        />
             </Box>
 
         </div>
