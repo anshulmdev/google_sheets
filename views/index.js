@@ -1,13 +1,12 @@
 import {initializeBlock} from '@airtable/blocks/ui';
-import { Box } from "@airtable/blocks/ui";
 import React from 'react';
-import { GenerateBasicReport } from "./runDemo"
-
+import { GenerateBasicReport } from "./runDemo";
+import { setGlobalVariables } from "../controllers/globalConfig";
 
 function HelloWorldApp() {
-    // YOUR CODE GOES HERE
-    return <div>
 
+    setGlobalVariables();
+    return <div>
 
     <GenerateBasicReport />
  

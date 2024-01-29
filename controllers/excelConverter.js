@@ -1,9 +1,17 @@
-import writeXlsxFile from 'write-excel-file'
+import writeXlsxFile from 'write-excel-file';
+import { globalConfig } from '@airtable/blocks';
 
 
 const mainConverter = async (fileName, schema, dataObject) => {
-    await writeXlsxFile(dataObject, { schema, fileName: `${fileName}.xlsx`})
-    return
+    // await writeXlsxFile(dataObject, { schema, fileName: `${fileName}.xlsx`})
+    for (let i=1; i<11; i++) {
+        setTimeout(() => {
+            globalConfig.setAsync('progress', i)
+            console.log (globalConfig.get('progress'))
+        }, 1000);
+    }
+
+    return;
 }
 
 export const excelConverter = async (fileName, tableFields, tableRecords) => {
