@@ -1,24 +1,53 @@
 import React, { useState } from "react";
-import {base} from '@airtable/blocks';
-import { Button } from "@airtable/blocks/ui";
+import { base } from '@airtable/blocks';
+import { Text, Icon, FormField, Input, Box, Heading, Button } from "@airtable/blocks/ui";
 import { demoPayload } from "../controllers/getTable";
-import { TablePicker } from "@airtable/blocks/ui";
+import { TablePicker, ViewPicker } from "@airtable/blocks/ui";
 
 
 
 
 export const GenerateBasicReport = () => {
     const [table, setTable] = useState(base.tables[0]);
+    const [view, setView] = useState(null);
+    const [value, setValue] = useState(`${table.name}`);
     return (
         <div>
-            <TablePicker
-                table={table}
-                onChange={newTable => setTable(newTable)}
-                width="320px"
-            />
-            <Button onClick={() => demoPayload(table)} icon="edit">
-                Generate Excel Report
-            </Button>
+            <Box marginY={1} padding={3} display="flex">
+                <Icon name="share" marginTop={1} size={20} />
+                <Heading size="small" paddingLeft={2}> Excel Exporter </Heading>
+            </Box>
+            <Box marginY={2} display="flex" alignIt2ms="center">
+                <Text marginX={3} flex={1} justifyContent='flex-start'>Table</Text>
+                <Text marginX={3} flex={1} justifyContent='flex-end'>View</Text>
+            </Box>
+            <Box marginY={1} display="flex" alignIt2ms="center">
+                <Text as='strong' marginX={3} flex={1} justifyContent='flex-start'>Prepare excel as per selected Table</Text>
+                <Text as='strong' marginX={3} flex={1} justifyContent='flex-end'>Generate filtered view and export it from here</Text>
+            </Box>
+            <Box display="flex" alignIt2ms="center">
+                <TablePicker flex={1} justifyContent='flex-start' marginX={3}
+                    table={table}
+                    onChange={newTable => setTable(newTable)}
+                    width="320px"
+                />
+                <ViewPicker
+                    flex={1} justifyContent='flex-start' marginX={3}
+                    table={table}
+                    view={view}
+                    onChange={newView => setView(newView)}
+                    width="320px"
+                />
+            </Box>
+            <Box display="flex" alignItems="center" padding={3}>
+                <FormField flex={4} justifyContent='flex-start' label="Enter FileName">
+                    <Input value={value} onChange={e => setValue(e.target.value)} />
+                </FormField>
+                <Button
+                    variant="primary" flex={1} marginLeft={1} marginTop={1} justifyContent='flex-start' onClick={() => demoPayload(table, value)} icon="premium">
+                    Generate Excel Report
+                </Button>
+            </Box>
 
         </div>
     )

@@ -16,17 +16,16 @@ const dataFormatting = (airtableTable) => {
 
 
 
-export const demoPayload = async (myTable) => {
+export const demoPayload = async (myTable, fileName) => {
     try {
         if (!myTable) throw new Error("Table not Selected to Query")
         const tableID = myTable._id;
         const queryResult = myTable.selectRecords();
         await queryResult.loadDataAsync();
         const tableRecords = queryResult;
-        const tableName = myTable.name;
         const tableFields = myTable.fields;
 
-        await excelConverter(tableName, tableFields, tableRecords);
+        await excelConverter(fileName, tableFields, tableRecords);
 
         return true;
 

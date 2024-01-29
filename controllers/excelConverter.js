@@ -2,11 +2,11 @@ import writeXlsxFile from 'write-excel-file'
 
 
 const mainConverter = async (fileName, schema, dataObject) => {
-    await writeXlsxFile(dataObject, { schema, fileName: `${fileName}-file.xlsx`})
+    await writeXlsxFile(dataObject, { schema, fileName: `${fileName}.xlsx`})
     return
 }
 
-export const excelConverter = async (tableName, tableFields, tableRecords) => {
+export const excelConverter = async (fileName, tableFields, tableRecords) => {
     try {
         let fields = {}
         tableFields = tableFields.forEach((e) => fields[e.id] = { name: e.name, type: e.type })
@@ -49,7 +49,7 @@ export const excelConverter = async (tableName, tableFields, tableRecords) => {
 
         console.log("schema", schema);
         console.log("objects", objects)
-        await mainConverter(tableName, schema, objects)
+        await mainConverter(fileName, schema, objects)
 
 
 
