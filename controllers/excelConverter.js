@@ -9,7 +9,7 @@ const mainConverter = async (fileName, schema, dataObject) => {
 export const excelConverter = async (fileName, tableFields, tableRecords) => {
     try {
         let fields = {}
-        tableFields = tableFields.forEach((e) => fields[e.id] = { name: e.name, type: e.type })
+        tableFields.forEach((e) => {fields[e._id] = { name: e.name, type: e.type }})
 
         let records = [];
         tableRecords.records.forEach(element => {
@@ -42,7 +42,7 @@ export const excelConverter = async (fileName, tableFields, tableRecords) => {
         records.forEach((record) => {
             let recordTemp = {};
             Object.keys(record).forEach((key) => {
-                recordTemp[String(fields[key].name)] = record[key]
+                if (fields[key]) recordTemp[String(fields[key].name)] = record[key]
             })
             objects.push(recordTemp)
         })

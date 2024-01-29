@@ -5,8 +5,6 @@ import { demoPayload } from "../controllers/getTable";
 import { TablePicker, ViewPicker } from "@airtable/blocks/ui";
 
 
-
-
 export const GenerateBasicReport = () => {
     const [table, setTable] = useState(base.tables[0]);
     const [view, setView] = useState(table.views[0]);
@@ -29,7 +27,7 @@ export const GenerateBasicReport = () => {
             <Box display="flex" alignIt2ms="center">
                 <TablePicker flex={1} justifyContent='flex-start' marginX={3}
                     table={table}
-                    onChange={newTable => setTable(newTable)}
+                    onChange={newTable => {setTable(newTable); setView(newTable.views[0])}}
                     width="320px"
                 />
                 <ViewPicker
@@ -50,7 +48,7 @@ export const GenerateBasicReport = () => {
                 </Button>
             </Box>
             <ProgressBar
-            progress={0}
+            progress={0.6}
             barColor='#00A36C'
         />
             </Box>
