@@ -13,17 +13,18 @@ export const GenerateBasicReport = () => {
     const [value, setValue] = useState(`${table.name}`);
     return (
         <div>
-            <Box marginY={1} padding={3} display="flex">
+            <Box padding={3} display="flex">
                 <Icon name="share" marginTop={1} size={20} />
                 <Heading size="small" paddingLeft={2}> Excel Exporter </Heading>
             </Box>
-            <Box marginY={2} display="flex" alignIt2ms="center">
-                <Text marginX={3} flex={1} justifyContent='flex-start'>Table</Text>
-                <Text marginX={3} flex={1} justifyContent='flex-end'>View</Text>
+            <Box border="default" margin={2}>
+            <Box paddingTop={3} display="flex" alignIt2ms="center">
+                <Text marginX={3} flex={1} justifyContent='flex-start'><b>Table</b></Text>
+                <Text marginX={3} flex={1} justifyContent='flex-end'><b>View</b></Text>
             </Box>
-            <Box marginY={1} display="flex" alignIt2ms="center">
-                <Text as='strong' marginX={3} flex={1} justifyContent='flex-start'>Prepare excel as per selected Table</Text>
-                <Text as='strong' marginX={3} flex={1} justifyContent='flex-end'>Generate filtered view and export it from here</Text>
+            <Box marginY={1} marginTop={2} display="flex" alignIt2ms="center">
+                <Text as = {'p'} marginX={3} flex={1} justifyContent='flex-start'>Prepare excel as per selected Table</Text>
+                <Text marginX={3} flex={1} justifyContent='flex-end'>Generate filtered view and export it from here</Text>
             </Box>
             <Box display="flex" alignIt2ms="center">
                 <TablePicker flex={1} justifyContent='flex-start' marginX={3}
@@ -47,6 +48,7 @@ export const GenerateBasicReport = () => {
                     variant="primary" flex={1} marginLeft={1} marginTop={1} justifyContent='flex-start' onClick={() => demoPayload(table, value)} icon="premium">
                     Generate Excel Report
                 </Button>
+            </Box>
             </Box>
 
         </div>
