@@ -5,9 +5,10 @@
     "dependencies": {
         "@airtable/blocks": "1.8.0",
         "@react-oauth/google": "^0.12.1",
-        "excel4node": "^1.8.2",
+        "npm": "^10.4.0",
         "react": "^16.13.0",
-        "react-dom": "^16.13.0"
+        "react-dom": "^16.13.0",
+        "write-excel-file": "^1.4.29"
     },
     "devDependencies": {
         "eslint": "^6.8.0",
