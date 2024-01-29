@@ -1,7 +1,7 @@
 import { excelConverter } from "./excelConverter";
 
 
-export const demoPayload = async (myTable, fileName, view) => {
+export const demoPayload = async (myTable, fileName, view, setProgress) => {
     try {
         if (!myTable) throw new Error("Table not Selected to Query")
         const queryResult = view.selectRecords();
@@ -12,7 +12,7 @@ export const demoPayload = async (myTable, fileName, view) => {
         const tableRecords = queryResult;
         const tableFields = viewMetadata.visibleFields;
 
-        await excelConverter(fileName, tableFields, tableRecords);
+        await excelConverter(fileName, tableFields, tableRecords, setProgress);
 
         return true;
 

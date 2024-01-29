@@ -2,20 +2,16 @@ import writeXlsxFile from 'write-excel-file';
 import { globalConfig } from '@airtable/blocks';
 
 
-const mainConverter = async (fileName, schema, dataObject) => {
+const mainConverter = async (fileName, schema, dataObject, setProgress) => {
     // await writeXlsxFile(dataObject, { schema, fileName: `${fileName}.xlsx`})
-    for (let i=1; i<11; i++) {
-        setTimeout(() => {
-            globalConfig.setAsync('progress', i)
-            console.log (globalConfig.get('progress'))
-        }, 1000);
-    }
+    setProgress(0.5)
 
     return;
 }
 
-export const excelConverter = async (fileName, tableFields, tableRecords) => {
+export const excelConverter = async (fileName, tableFields, tableRecords, setProgress) => {
     try {
+        setProgress(0.1);
         let fields = {}
         tableFields.forEach((e) => {fields[e._id] = { name: e.name, type: e.type }})
 
@@ -47,6 +43,7 @@ export const excelConverter = async (fileName, tableFields, tableRecords) => {
         
         })
         console.log(records)
+        setProgress(0.2)
         records.forEach((record) => {
             let recordTemp = {};
             Object.keys(record).forEach((key) => {
@@ -57,7 +54,8 @@ export const excelConverter = async (fileName, tableFields, tableRecords) => {
 
         console.log("schema", schema);
         console.log("objects", objects)
-        await mainConverter(fileName, schema, objects)
+        setProgress(0.3)
+        await mainConverter(fileName, schema, objects, setProgress)
 
 
 
