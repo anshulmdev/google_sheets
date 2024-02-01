@@ -27,6 +27,7 @@ export const excelConverter = async (fileName, tableFields, tableRecords, setPro
             switch(type) {
                 case "createdTime": return Date ;
                 case "checkbox": return Boolean;
+                case "percent": return String;
                 default: return String ;
             }
         }
@@ -41,6 +42,7 @@ export const excelConverter = async (fileName, tableFields, tableRecords, setPro
         Object.values(fields).forEach((e) => { 
             let row = {column: e.name, type: checkType(e.type), value: item => checkValue(item, e.type, e.name)};
             if ( row.type === Date ) row['format'] = 'mm/dd/yyyy';
+            if ( row.type === Number ) row['format'] = '#,##0.00';
             schema.push(row)
         
         })
@@ -48,7 +50,10 @@ export const excelConverter = async (fileName, tableFields, tableRecords, setPro
         records.forEach((record) => {
             let recordTemp = {};
             Object.keys(record).forEach((key) => {
-                if (fields[key]) recordTemp[String(fields[key].name)] = record[key]
+                if (fields[key]) {
+                    if (record[key].name) recordTemp[String(fields[key].name)] = record[key].name
+                    else recordTemp[String(fields[key].name)] = record[key]
+                }
             })
             objects.push(recordTemp)
         })
@@ -61,6 +66,7 @@ export const excelConverter = async (fileName, tableFields, tableRecords, setPro
         return;
         
     } catch (error) {
+        await setProgress(0.0)
         console.log(error);
         return error
     }

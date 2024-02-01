@@ -56,7 +56,6 @@ export const setGlobalVariables = async () => {
         if (userInfo.id) await globalConfig.setAsync('credits', userInfo.credits);
         else await createNewUser(url, id, name, email)
         const getInfo = await getData(url, id);
-        console.log(getInfo);
         return true;
 
     } catch(error) {
@@ -82,7 +81,6 @@ export const reduceCredits = async (creditsToReduce) => {
                 "Item" :{ id, name, email, credits: NewCredits}
             }
           }
-          console.log(data)
           const request = await fetch(url, {
             method: "POST",
             mode: 'no-cors',

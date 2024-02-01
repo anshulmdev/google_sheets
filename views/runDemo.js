@@ -4,6 +4,7 @@ import { Tooltip, ProgressBar, Text, Icon, FormField, Input, Box, Heading, Butto
 import { demoPayload } from "../controllers/getTable";
 import { TablePicker, ViewPicker } from "@airtable/blocks/ui";
 import { globalConfig } from '@airtable/blocks';
+import secrets from "../secrets.json";
 
 
 export const GenerateBasicReport = () => {
@@ -18,16 +19,16 @@ export const GenerateBasicReport = () => {
         const queryResult = view.selectRecords();
         await queryResult.loadDataAsync();
         await setRows(queryResult.records.length);
-        return ;
+        return;
     }
     viewRowCount(view);
     return (
         <div>
             <Box padding={2} paddingTop={2} paddingLeft={2} display="flex">
-                <Icon name="share" marginTop={1} size={20} />
+                <Icon fillColor={secrets.REACT_THEME_DARK_COLOR} name="share" marginTop={1} size={20} />
                 <Heading size="small" paddingLeft={2}> Excel Exporter </Heading>
             </Box>
-            <Box border="default" margin={1} marginX={2}>
+            <Box style={{ "borderColor": secrets.REACT_THEME_DARK_COLOR, borderRadius: 5 }} border="default" margin={1} marginX={2}>
 
                 <Box marginTop={2} display="flex" justifyContent="flex-end" alignIt2ms="right">
                     <Text><b>{globalConfig.get('credits')}: Credits</b></Text>
@@ -37,7 +38,7 @@ export const GenerateBasicReport = () => {
                         placementY={Tooltip.placements.BOTTOM}
                         shouldHideTooltipOnClick={true}
                     >
-                        <Icon marginX={1} name="help" size={16} />
+                        <Icon marginX={2} name="help" size={16} />
 
                     </Tooltip>
                 </Box>
@@ -59,7 +60,7 @@ export const GenerateBasicReport = () => {
                         flex={1} justifyContent='flex-start' marginX={3}
                         table={table}
                         view={view}
-                        onChange={newView => { setView(newView); viewRowCount(newView)} }
+                        onChange={newView => { setView(newView); viewRowCount(newView) }}
                         width="320px"
                     />
                 </Box>
@@ -68,6 +69,9 @@ export const GenerateBasicReport = () => {
                         <Input value={value} onChange={e => setValue(e.target.value)} />
                     </FormField>
                     <Button
+                        style={{
+                            "backgroundColor": secrets.REACT_THEME_DARK_COLOR
+                        }}
                         variant="primary" flex={1} marginLeft={1} marginTop={1} justifyContent='flex-start' onClick={() => setIsDialogOpen(true)} icon="premium">
                         Generate Excel Report
                     </Button>
@@ -77,18 +81,20 @@ export const GenerateBasicReport = () => {
                         <Dialog.CloseButton />
                         <Heading>Confirm Operation</Heading>
                         <Text variant="paragraph">
-                        You are about to use {rows} credits for {rows} rows in this operation. Would you like to proceed?
+                            You are about to use {rows} credits for {rows} rows in this operation. Would you like to proceed?
                         </Text>
                         <Box paddingTop={3} display="flex">
-                        <Button marginX={1} flex={1} justifyContent='flex-start' variant="primary" onClick={() => {setIsDialogOpen(false); demoPayload(table, value, view, setProgress, rows)}}>Proceed</Button>
-                        <Button marginX={1} flex={1} justifyContent='flex-start' onClick={() => setIsDialogOpen(false)}>Close</Button>
+                            <Button style={{
+                                "backgroundColor": secrets.REACT_THEME_DARK_COLOR
+                            }} marginX={1} flex={1} justifyContent='flex-start' variant="primary" onClick={() => { setIsDialogOpen(false); demoPayload(table, value, view, setProgress, rows) }}>Proceed</Button>
+                            <Button marginX={1} flex={1} justifyContent='flex-start' onClick={() => setIsDialogOpen(false)}>Close</Button>
 
                         </Box>
                     </Dialog>
                 )}
                 <ProgressBar
                     progress={progress}
-                    barColor='#00A36C'
+                    barColor={secrets.REACT_THEME_LIGHT_COLOR}
                 />
             </Box>
 

@@ -15,8 +15,14 @@ function HelloWorldApp() {
 
     return <div>
         {data ? <GenerateBasicReport />: 
-          <Box paddingLeft={5} paddingTop={5} display="flex" justifyContent="flex-center" alignIt2ms="center">
+          <Box style={{
+            paddingTop: "100px",
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+        }}>
             <Loader scale={0.3} />
+            <p style={{paddingLeft:"10px"}}>Please Wait....</p>
           </Box>
           }
     </div>;
