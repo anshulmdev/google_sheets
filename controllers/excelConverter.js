@@ -57,6 +57,7 @@ export const excelConverter = async (fileName, tableFields, tableRecords, setPro
             })
             objects.push(recordTemp)
         })
+        console.log(objects)
         await setProgress(0.3);
         await reduceCredits(credits);
         await setProgress(0.5);

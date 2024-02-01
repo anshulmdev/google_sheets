@@ -26,7 +26,7 @@ export const GenerateBasicReport = () => {
         <div>
             <Box padding={2} paddingTop={2} paddingLeft={2} display="flex">
                 <Icon fillColor={secrets.REACT_THEME_DARK_COLOR} name="share" marginTop={1} size={20} />
-                <Heading size="small" paddingLeft={2}> Excel Exporter </Heading>
+                <Heading size="small" paddingLeft={2}> Einfach Excel Exporter </Heading>
             </Box>
             <Box style={{ "borderColor": secrets.REACT_THEME_DARK_COLOR, borderRadius: 5 }} border="default" margin={1} marginX={2}>
 

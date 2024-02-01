@@ -5,9 +5,11 @@
     "dependencies": {
         "@airtable/blocks": "1.8.0",
         "@react-oauth/google": "^0.12.1",
+        "file-loader": "^6.2.0",
         "npm": "^10.4.0",
         "react": "^16.13.0",
         "react-dom": "^16.13.0",
+        "url-loader": "^4.1.1",
         "write-excel-file": "^1.4.29"
     },
     "devDependencies": {
