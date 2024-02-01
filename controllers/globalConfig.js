@@ -41,8 +41,7 @@ const createNewUser = async (url, id, name, email) => {
         mode: 'no-cors',
         body: JSON.stringify(data)
     })
-    const response = await request.json();
-    return response;
+    return request;
 }
 
 
@@ -71,9 +70,10 @@ export const setGlobalVariables = async () => {
 export const reduceCredits = async (creditsToReduce) => {
     try {
         const collaborator = base.activeCollaborators[0];
+        const { id } = collaborator;
         const url = secrets.REACT_APP_FUNCTIONURL;
         const userInfo = await getData(url, id);
-        const { id, email, name, credits } = userInfo;
+        const { email, name, credits } = userInfo;
         let NewCredits = credits - creditsToReduce;
         const data = {
             "operation": "create",
@@ -82,9 +82,17 @@ export const reduceCredits = async (creditsToReduce) => {
                 "Item" :{ id, name, email, credits: NewCredits}
             }
           }
+          console.log(data)
+          const request = await fetch(url, {
+            method: "POST",
+            mode: 'no-cors',
+            body: JSON.stringify(data)
+        })
+        await setGlobalVariables();
+        return request;
 
     } catch (error) {
-        console.log("Error")
+        console.log(error)
         return "Unable to reduce credits"
     }
 

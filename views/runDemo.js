@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { base } from '@airtable/blocks';
-import { Tooltip, ProgressBar, Text, Icon, FormField, Input, Box, Heading, Button } from "@airtable/blocks/ui";
+import { Tooltip, ProgressBar, Text, Icon, FormField, Input, Box, Heading, Button, Dialog } from "@airtable/blocks/ui";
 import { demoPayload } from "../controllers/getTable";
 import { TablePicker, ViewPicker } from "@airtable/blocks/ui";
 import { globalConfig } from '@airtable/blocks';
@@ -11,6 +11,16 @@ export const GenerateBasicReport = () => {
     const [table, setTable] = useState(base.tables[0]);
     const [view, setView] = useState(table.views[0]);
     const [value, setValue] = useState(`${table.name}`);
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [rows, setRows] = useState(0);
+
+    const viewRowCount = async (view) => {
+        const queryResult = view.selectRecords();
+        await queryResult.loadDataAsync();
+        await setRows(queryResult.records.length);
+        return ;
+    }
+    viewRowCount(view);
     return (
         <div>
             <Box padding={2} paddingTop={2} paddingLeft={2} display="flex">
@@ -27,7 +37,7 @@ export const GenerateBasicReport = () => {
                         placementY={Tooltip.placements.BOTTOM}
                         shouldHideTooltipOnClick={true}
                     >
-                    <Icon marginX={1} name="help" size={16} />
+                        <Icon marginX={1} name="help" size={16} />
 
                     </Tooltip>
                 </Box>
@@ -42,14 +52,14 @@ export const GenerateBasicReport = () => {
                 <Box display="flex">
                     <TablePicker flex={1} justifyContent='flex-start' marginX={3}
                         table={table}
-                        onChange={newTable => { setTable(newTable); setView(newTable.views[0]) }}
+                        onChange={newTable => { setTable(newTable); setView(newTable.views[0]); viewRowCount(newTable.views[0]) }}
                         width="320px"
                     />
                     <ViewPicker
                         flex={1} justifyContent='flex-start' marginX={3}
                         table={table}
                         view={view}
-                        onChange={newView => setView(newView)}
+                        onChange={newView => { setView(newView); viewRowCount(newView)} }
                         width="320px"
                     />
                 </Box>
@@ -58,10 +68,24 @@ export const GenerateBasicReport = () => {
                         <Input value={value} onChange={e => setValue(e.target.value)} />
                     </FormField>
                     <Button
-                        variant="primary" flex={1} marginLeft={1} marginTop={1} justifyContent='flex-start' onClick={() => demoPayload(table, value, view, setProgress)} icon="premium">
+                        variant="primary" flex={1} marginLeft={1} marginTop={1} justifyContent='flex-start' onClick={() => setIsDialogOpen(true)} icon="premium">
                         Generate Excel Report
                     </Button>
                 </Box>
+                {isDialogOpen && (
+                    <Dialog onClose={() => viewRowCount(view)} width="320px">
+                        <Dialog.CloseButton />
+                        <Heading>Confirm Operation</Heading>
+                        <Text variant="paragraph">
+                        You are about to use {rows} credits for {rows} rows in this operation. Would you like to proceed?
+                        </Text>
+                        <Box paddingTop={3} display="flex">
+                        <Button marginX={1} flex={1} justifyContent='flex-start' variant="primary" onClick={() => {setIsDialogOpen(false); demoPayload(table, value, view, setProgress, rows)}}>Proceed</Button>
+                        <Button marginX={1} flex={1} justifyContent='flex-start' onClick={() => setIsDialogOpen(false)}>Close</Button>
+
+                        </Box>
+                    </Dialog>
+                )}
                 <ProgressBar
                     progress={progress}
                     barColor='#00A36C'
