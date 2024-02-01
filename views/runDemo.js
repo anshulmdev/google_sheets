@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { base } from '@airtable/blocks';
 import { Tooltip, ProgressBar, Text, Icon, FormField, Input, Box, Heading, Button } from "@airtable/blocks/ui";
 import { demoPayload } from "../controllers/getTable";
