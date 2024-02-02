@@ -43,8 +43,8 @@ export const GenerateBasicReport = () => {
                     <Text marginX={3} flex={1} justifyContent='flex-end'><b>View</b></Text>
                 </Box>
                 <Box marginY={1} marginTop={2} display="flex">
-                    <Text as={'p'} marginX={3} flex={1} justifyContent='flex-start'>Prepare excel as per selected Table</Text>
-                    <Text marginX={3} flex={1} justifyContent='flex-end'>Generate filtered view and export it from here</Text>
+                    <Text as={'p'} marginX={3} flex={1} justifyContent='flex-start'>Prepare excel as per selected table</Text>
+                    <Text marginX={3} flex={1} justifyContent='flex-end'>Select filtered view for export</Text>
                 </Box>
                 <Box display="flex">
                     <TablePicker flex={1} justifyContent='flex-start' marginX={3}
@@ -68,8 +68,8 @@ export const GenerateBasicReport = () => {
                         style={{
                             "backgroundColor": secrets.REACT_THEME_DARK_COLOR
                         }}
-                     flex={1} variant="primary" marginLeft={1} marginTop={1} justifyContent='flex-start' onClick={() => setIsDialogOpen(true)} icon="premium">
-                        Generate Excel Report
+                     flex={1} variant="primary" marginLeft={1} marginTop={1} justifyContent='flex-start' onClick={() => setIsDialogOpen(true)} icon="switcher">
+                        Generate Excel File
                     </Button>
                 </Box>
                 {isDialogOpen && (

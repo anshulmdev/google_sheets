@@ -14,7 +14,6 @@ export const excelConverter = async (fileName, tableFields, tableRecords, setPro
         setProgress(0.1);
         let fields = {}
         tableFields.forEach((e) => {fields[e._id] = { name: e.name, type: e.type }})
-        console.log(fields)
         let records = [];
         tableRecords.records.forEach(element => {
             records.push(element._data.cellValuesByFieldId)
