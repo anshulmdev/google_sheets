@@ -74,6 +74,7 @@ export const reduceCredits = async (creditsToReduce) => {
         const userInfo = await getData(url, id);
         const { email, name, credits } = userInfo;
         let NewCredits = credits - creditsToReduce;
+        if (NewCredits < 0) throw new Error ("You don't have suffiecient credits for this operation. Please contact to upgrade")
         const data = {
             "operation": "create",
             "payload": {

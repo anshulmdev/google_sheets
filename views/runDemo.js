@@ -14,6 +14,7 @@ export const GenerateBasicReport = () => {
     const [value, setValue] = useState(`${table.name}`);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [rows, setRows] = useState(0);
+    const [ErrorDialogOpen, setErrorDialogOpen] = useState(false);
 
     const viewRowCount = async (view) => {
         const queryResult = view.selectRecords();
@@ -85,9 +86,21 @@ export const GenerateBasicReport = () => {
                         <Box paddingTop={3} display="flex">
                             <Button style={{
                                 "backgroundColor": secrets.REACT_THEME_DARK_COLOR
-                            }} marginX={1} flex={1} justifyContent='flex-start' variant="primary" onClick={() => { setIsDialogOpen(false); demoPayload(table, value, view, setProgress, rows) }}>Proceed</Button>
+                            }} marginX={1} flex={1} justifyContent='flex-start' variant="primary" onClick={() => { setIsDialogOpen(false); demoPayload(table, value, view, setProgress, rows, setErrorDialogOpen) }}>Proceed</Button>
                             <Button marginX={1} flex={1} justifyContent='flex-start' onClick={() => setIsDialogOpen(false)}>Close</Button>
 
+                        </Box>
+                    </Dialog>
+                )}
+                {ErrorDialogOpen && (
+                    <Dialog onClose={() => viewRowCount(view)} width="320px">
+                        <Dialog.CloseButton />
+                        <Heading>Error in Operation</Heading>
+                        <Text variant="paragraph">
+                            {ErrorDialogOpen}
+                        </Text>
+                        <Box paddingTop={3} display="flex">
+                            <Button marginX={1} flex={1} justifyContent='flex-start' onClick={() => setErrorDialogOpen(false)}>Close</Button>
                         </Box>
                     </Dialog>
                 )}
