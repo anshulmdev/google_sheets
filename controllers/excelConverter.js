@@ -4,19 +4,16 @@ import { reduceCredits } from "../controllers/globalConfig";
 
 
 const mainConverter = async (fileName, schema, dataObject, setProgress) => {
-    await setProgress(0.7)
-    await writeXlsxFile(dataObject, { schema, fileName: `${fileName}.xlsx`})
     await setProgress(0.8)
-
-    return;
+    await writeXlsxFile(dataObject, { schema, fileName: `${fileName}.xlsx`})
+    await setProgress(1.0)
+    return true;
 }
 
 export const excelConverter = async (fileName, tableFields, tableRecords, setProgress, credits) => {
-    try {
         setProgress(0.1);
         let fields = {}
         tableFields.forEach((e) => {fields[e._id] = { name: e.name, type: e.type }})
-
         let records = [];
         tableRecords.records.forEach(element => {
             records.push(element._data.cellValuesByFieldId)
@@ -27,15 +24,17 @@ export const excelConverter = async (fileName, tableFields, tableRecords, setPro
             switch(type) {
                 case "createdTime": return Date ;
                 case "checkbox": return Boolean;
-                case "percent": return String;
+                case "number": return Number;
+                case "currency": return Number;
+                case "percent": return Number;
                 default: return String ;
             }
         }
 
         const checkValue = (item, type, name) => {
             switch(item) {
-                case type === "checkbox": return item[name]
-                default: return String(item[name])
+                case type === "string": return String(item[name])
+                default: return item[name]
             }
         }
 
@@ -57,19 +56,13 @@ export const excelConverter = async (fileName, tableFields, tableRecords, setPro
             })
             objects.push(recordTemp)
         })
-        console.log(objects)
         await setProgress(0.3);
-        await reduceCredits(credits);
-        await setProgress(0.5);
-        await mainConverter(fileName, schema, objects, setProgress);
-        await setProgress(1.0)
-
-        return;
-        
-    } catch (error) {
+        const creditReduction = await reduceCredits(credits, setProgress);
+        await setProgress(0.7);
+        if (creditReduction) await mainConverter(fileName, schema, objects, setProgress);
+        else throw new error(creditReduction);
         await setProgress(0.0)
-        console.log(error);
-        return error
-    }
-
+        return true;
+        
+   
 }

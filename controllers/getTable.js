@@ -17,7 +17,7 @@ export const demoPayload = async (myTable, fileName, view, setProgress, credits,
         return true;
 
     } catch (error) {
-        console.log(error)
+        await setProgress(0.0);
         await setErrorDialogOpen(error.message)
         return;
     }
