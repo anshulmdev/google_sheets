@@ -25,11 +25,10 @@ export const GenerateBasicReport = () => {
     return (
         <div>
             <Box padding={2} paddingTop={2} paddingLeft={2} display="flex">
-                <Icon fillColor={secrets.REACT_THEME_DARK_COLOR} name="share" marginTop={1} size={20} />
+                <img src={secrets.REACT_APP_LOGO} width="20" height="20" style={{marginTop:"2px"}} />
                 <Heading size="small" paddingLeft={2}> Einfach Excel Exporter </Heading>
             </Box>
             <Box style={{ "borderColor": secrets.REACT_THEME_DARK_COLOR, borderRadius: 5 }} border="default" margin={1} marginX={2}>
-
                 <Box marginTop={2} display="flex" justifyContent="flex-end" alignIt2ms="right">
                     <Text><b>{globalConfig.get('credits')}: Credits</b></Text>
                     <Tooltip
