@@ -68,7 +68,7 @@ export const GenerateBasicReport = () => {
                         style={{
                             "backgroundColor": secrets.REACT_THEME_DARK_COLOR
                         }}
-                        variant="primary" flex={1} marginLeft={1} marginTop={1} justifyContent='flex-start' onClick={() => setIsDialogOpen(true)} icon="premium">
+                     flex={1} variant="primary" marginLeft={1} marginTop={1} justifyContent='flex-start' onClick={() => setIsDialogOpen(true)} icon="premium">
                         Generate Excel Report
                     </Button>
                 </Box>
@@ -91,11 +91,14 @@ export const GenerateBasicReport = () => {
                 {ErrorDialogOpen && (
                     <Dialog onClose={() => viewRowCount(view)} width="320px">
                         <Dialog.CloseButton />
-                        <Heading>Error in Operation</Heading>
+                        <Heading>⚠️ Error in Operation</Heading>
                         <Text variant="paragraph">
                             {ErrorDialogOpen}
                         </Text>
                         <Box paddingTop={3} display="flex">
+                        <Button style={{
+                                "backgroundColor": secrets.REACT_THEME_DARK_COLOR
+                            }} variant="primary" marginX={1} flex={1} justifyContent='flex-start' onClick={() => { setErrorDialogOpen(false); window.open("mailto:support@einfach.in") }}>Email Us</Button>
                             <Button marginX={1} flex={1} justifyContent='flex-start' onClick={() => setErrorDialogOpen(false)}>Close</Button>
                         </Box>
                     </Dialog>

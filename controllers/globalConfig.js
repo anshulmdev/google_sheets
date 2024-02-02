@@ -91,3 +91,27 @@ export const reduceCredits = async (creditsToReduce, setProgress) => {
 
 
 }
+
+export const refundCredits = async (creditsToAdd) => {
+    const collaborator = base.activeCollaborators[0];
+    const { id } = collaborator;
+    const userInfo = await getData(id);
+    const { email, name, credits } = userInfo;
+    let NewCredits = credits + creditsToAdd;
+    const data = {
+        "operation": "create",
+        "payload": {
+            "TableName": "airtable-excel",
+            "Item" :{ id, name, email, credits: NewCredits}
+        }
+      }
+      const request = await fetch(url, {
+        method: "POST",
+        mode: 'no-cors',
+        body: JSON.stringify(data)
+    })
+    await setGlobalVariables();
+    return true;
+
+
+}

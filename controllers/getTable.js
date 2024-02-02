@@ -1,4 +1,5 @@
 import { excelConverter } from "./excelConverter";
+import { refundCredits } from "./globalConfig";
 
 
 export const demoPayload = async (myTable, fileName, view, setProgress, credits, setErrorDialogOpen) => {
@@ -17,8 +18,10 @@ export const demoPayload = async (myTable, fileName, view, setProgress, credits,
         return true;
 
     } catch (error) {
+        await setProgress(0.7);
+        await refundCredits(credits);
         await setProgress(0.0);
-        await setErrorDialogOpen(error.message)
+        await setErrorDialogOpen(error.message);
         return;
     }
 }
