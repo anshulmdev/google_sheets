@@ -15,6 +15,10 @@ export const GenerateBasicReport = () => {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [rows, setRows] = useState(0);
     const [ErrorDialogOpen, setErrorDialogOpen] = useState(false);
+    const collaborator = base.activeCollaborators[0];
+    const { id } = collaborator;
+    const user = globalConfig.get(id);
+
 
     const viewRowCount = async (view) => {
         const queryResult = view.selectRecords();
@@ -27,9 +31,9 @@ export const GenerateBasicReport = () => {
         <div>
             <Box style={{ "borderColor": secrets.REACT_THEME_DARK_COLOR, borderRadius: 5 }} border="default">
                 <Box marginTop={2} display="flex" justifyContent="flex-end" alignIt2ms="right">
-                    <Text><b>{globalConfig.get('credits')}: Credits</b></Text>
+                    <Text><b>{user.credits}: Credits</b></Text>
                     <Tooltip
-                        content="Credits to use Excel Exporter"
+                        content="Every collaborator gets 1000 Credits for demo"
                         placementX={Tooltip.placements.CENTER}
                         placementY={Tooltip.placements.BOTTOM}
                         shouldHideTooltipOnClick={true}

@@ -18,10 +18,16 @@ export const demoPayload = async (myTable, fileName, view, setProgress, credits,
         return true;
 
     } catch (error) {
-        await setProgress(0.7);
-        await refundCredits(credits);
-        await setProgress(0.0);
-        await setErrorDialogOpen(error.message);
+        try {
+            await setProgress(0.7);
+            await refundCredits(credits);
+            await setProgress(0.0);
+            await setErrorDialogOpen(error.message);
+        } catch(errorMessage_2) {
+            console.log(errorMessage_2.message)
+            await setErrorDialogOpen("Looks like we are offline or facing server issue. Please reload and try again!!!");
+
+        }
         return;
     }
 }

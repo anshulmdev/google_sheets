@@ -20,14 +20,13 @@ const getData = async (id) => {
         response = await request.json();
         return response
     } catch (error) {
-        console.log({error})
-        return "ERROR"
+        return error.message
     }
 
 }
 
 const createNewUser = async (id, name, email) => {
-    let credits = 10000;
+    let credits = 1000;
     await globalConfig.setAsync('credits', credits);
     const data = {
         "operation": "create",
@@ -52,12 +51,13 @@ export const setGlobalVariables = async () => {
     
     
         const userInfo = await getData(id);
-        if (userInfo.id) await globalConfig.setAsync('credits', userInfo.credits);
+        if (userInfo.id) await globalConfig.setAsync(id, {credits: userInfo.credits});
         else await createNewUser(id, name, email)
         const getInfo = await getData(id);
         return true;
 
     } catch(error) {
+        console.log(error);
         return true;
     }
     
