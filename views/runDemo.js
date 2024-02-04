@@ -53,14 +53,14 @@ export const GenerateBasicReport = () => {
                 <Box display="flex">
                     <TablePicker flex={1} justifyContent='flex-start' marginX={3}
                         table={table}
-                        onChange={newTable => { setTable(newTable); setView(newTable.views[0]); viewRowCount(newTable.views[0]) }}
+                        onChange={newTable => { setTable(newTable); setView(newTable.views[0]); viewRowCount(newTable.views[0]); }}
                         width="320px"
                     />
                     <ViewPicker
                         flex={1} justifyContent='flex-start' marginX={3}
                         table={table}
                         view={view}
-                        onChange={newView => { setView(newView); viewRowCount(newView) }}
+                        onChange={newView => { setView(newView); viewRowCount(newView); }}
                         width="320px"
                     />
                 </Box>
