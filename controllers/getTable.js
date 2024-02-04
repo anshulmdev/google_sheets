@@ -19,8 +19,6 @@ export const demoPayload = async (myTable, fileName, view, setProgress, credits,
 
     } catch (error) {
         try {
-            await setProgress(0.7);
-            await refundCredits(credits);
             await setProgress(0.0);
             await setErrorDialogOpen(error.message);
         } catch(errorMessage_2) {

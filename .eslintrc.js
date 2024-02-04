@@ -15,11 +15,33 @@ module.exports = {
         ecmaVersion: 2018,
         sourceType: 'module',
     },
-    plugins: ['react', 'react-hooks'],
+    plugins: ['react', 'react-hooks', 'spellcheck'],
     rules: {
         'react/prop-types': 0,
         'react-hooks/rules-of-hooks': 'error',
         'react-hooks/exhaustive-deps': 'warn',
+        'spellcheck/spell-checker': [1,
+            {
+                "comments": true,
+                "strings": true,
+                "identifiers": true,
+                "lang": "en_US",
+                "skipWords": [
+                    "dict",
+                    "aff",
+                    "hunspellchecker",
+                    "hunspell",
+                    "utils"
+                 ],
+                 "skipIfMatch": [
+                     "http://[^s]*"
+                 ],
+                 "skipWordIfMatch": [
+                     "^foobar.*$"
+                 ],
+                 "minLength": 3
+             }
+         ]
     },
     settings: {
         react: {
