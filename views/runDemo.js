@@ -33,7 +33,7 @@ export const GenerateBasicReport = () => {
                 <Box marginTop={2} display="flex" justifyContent="flex-end" alignIt2ms="right">
                     <Text><b>{user.credits}: Credits</b></Text>
                     <Tooltip
-                        content="Every collaborator gets 1000 Credits for demo"
+                        content="Credits to use Einfach Excel Exporter"
                         placementX={Tooltip.placements.CENTER}
                         placementY={Tooltip.placements.BOTTOM}
                         shouldHideTooltipOnClick={true}

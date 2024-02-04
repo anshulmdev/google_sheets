@@ -27,7 +27,7 @@ const getData = async (id) => {
 
 const createNewUser = async (id, name, email) => {
     let credits = 1000;
-    await globalConfig.setAsync('credits', credits);
+    await globalConfig.setAsync(id, {credits: userInfo.credits});
     const data = {
         "operation": "create",
         "payload": {

@@ -1,5 +1,4 @@
 import { excelConverter } from "./excelConverter";
-import { refundCredits } from "./globalConfig";
 
 
 export const demoPayload = async (myTable, fileName, view, setProgress, credits, setErrorDialogOpen) => {
